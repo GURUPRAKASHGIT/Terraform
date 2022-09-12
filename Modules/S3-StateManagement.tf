@@ -1,20 +1,18 @@
 
 provider "aws"
 {
-  access_key = ""
-  secret_key = ""
   region     = "us-east-2"
 }
 
 required _providers{
   aws={
      source="hashicorp/aws"
-     version="~4.0"
+     version="~> 4.0"
   }
 }
 
 
-resource "aws_s3_bucket" "bucket6685" {
+resource "aws_s3_bucket" "bucketshouldbeunique22" {
   bucket = "my-tf-test-bucket"
   acl    = "private"
 
@@ -23,7 +21,7 @@ resource "aws_s3_bucket" "bucket6685" {
   }
 }
 
-resource "dynamodb6685" "terraform_state_lock" {
+resource "aws_dynamo_db_table" "terraform-state-lock" {
   name           = "terraform-lock"
   read_capacity  = 5
   write_capacity = 5
@@ -37,9 +35,9 @@ resource "dynamodb6685" "terraform_state_lock" {
 terraform {
   backend "s3" {
     bucket = "my-tf-test-bucket"
-    key = "Dev/terraform"
+    key = "Dev/terraform.tfstate"
     region = "us-east-2"
-    dynamodb_table = "terraform-lock"
+    dynamodb_table = "terraform-state-lock"
   }
 }
 }
