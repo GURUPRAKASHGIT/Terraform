@@ -20,7 +20,7 @@ resource "aws_ebs_volume" "db_ebs" {
   tags = local.common_tags
 }
 
-/*
+/*  ## Existing instance update
 resource "aws_instance" "webinstance" {
      ami = var.OS_id
    instance_type = var.instance_type
@@ -30,3 +30,7 @@ resource "aws_instance" "webinstance" {
   tags = "Instance-${var.instance_name[count.index]}"
 }
 */
+
+  
+## terraform import aws_instace.webinstance instance_id
+
