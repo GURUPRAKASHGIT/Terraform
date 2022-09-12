@@ -6,22 +6,22 @@ locals {
 }
 
 resource "aws_instance" "app-dev" {
-   ami = "ami-082b5a644766e0e6f"
-   instance_type = "t2.micro"
-   key_name = "ec2-key"
+   ami = var.OS_id
+   instance_type = var.instance_type
+   key_name = var.key_paire
    tags = local.common_tags
-  count = 3
+   count = 3
 }
 
 resource "aws_ebs_volume" "db_ebs" {
-  availability_zone = "us-east-2c"
-  size              = 8
+  availability_zone = var.az
+  size              = var.ebs_size
   tags = local.common_tags
 }
 
 resource "aws_instance" "webinstance" {
-   ami = "ami-082b5a644766e0e6f"
+   ami = var.Os_id
    instance_type = var.instance_type
    count = 3
-  tags = var.instance_name[count.index]
+  tags = "Instance-${var.instance_name[count.index]}"
 }
